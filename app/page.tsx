@@ -3,7 +3,7 @@ import Header from './components/Header'
 import { Product } from './interfaces/Product'
 
 async function getProducts(): Promise<Product[]> {
-  const res = await fetch('https://fakestoreapi.com/products')
+  const res = await fetch('https://fakestoreapi.com/products', { cache: 'no-store' })
 
   if (!res.ok) {
     throw new Error('Failed to fetch data')
