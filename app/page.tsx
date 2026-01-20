@@ -3,13 +3,18 @@ import Header from './components/Header'
 import { Product } from './interfaces/Product'
 
 async function getProducts(): Promise<Product[]> {
-  const res = await fetch('https://fakestoreapi.com/products', { cache: 'no-store' })
+  // Usamos la variable de entorno de Vercel. 
+  // Si no existe (en local), apuntamos al localhost del backend.
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+  
+  // IMPORTANTE: Asegúrate de que la ruta coincida con la de tu backend (/api/products)
+  const res = await fetch(`${baseUrl}/api/products`, { cache: 'no-store' });
 
   if (!res.ok) {
-    throw new Error('Failed to fetch data')
+    throw new Error('Failed to fetch data');
   }
 
-  return res.json()
+  return res.json();
 }
 
 export default async function Home() {
